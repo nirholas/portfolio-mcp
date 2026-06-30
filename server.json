@@ -1,0 +1,89 @@
+{
+	"$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+	"name": "io.github.nirholas/portfolio-mcp",
+	"title": "three.ws Portfolio",
+	"description": "An agent's trading state — portfolio value, PnL, live balances, trade feed, and signed transfers.",
+	"websiteUrl": "https://three.ws",
+	"icons": [
+		{
+			"src": "https://three.ws/three-ws-mcp-icon.svg",
+			"mimeType": "image/svg+xml",
+			"sizes": [
+				"any"
+			]
+		}
+	],
+	"repository": {
+		"url": "https://github.com/nirholas/portfolio-mcp",
+		"source": "github"
+	},
+	"version": "0.1.0",
+	"packages": [
+		{
+			"registryType": "npm",
+			"identifier": "@three-ws/portfolio-mcp",
+			"version": "0.1.0",
+			"runtimeHint": "npx",
+			"transport": {
+				"type": "stdio"
+			},
+			"environmentVariables": [
+				{
+					"name": "THREE_WS_BASE",
+					"description": "Base URL of the three.ws API that serves the portfolio + trades endpoints. Override only when self-hosting or targeting a preview deployment.",
+					"format": "string",
+					"isRequired": false,
+					"default": "https://three.ws"
+				},
+				{
+					"name": "THREE_WS_TIMEOUT_MS",
+					"description": "Per-request timeout in milliseconds for the live three.ws API reads.",
+					"format": "number",
+					"isRequired": false,
+					"default": "20000"
+				},
+				{
+					"name": "THREE_WS_SESSION",
+					"description": "Your three.ws session token (the value of the `__Host-sid` cookie from a signed-in browser). Required for the account-scoped reads — get_portfolio_summary, get_portfolio_history, get_portfolio_asset — which return data for the agents YOU own. The public trade feed and on-chain balance reads do not need it. Treat like a password.",
+					"format": "string",
+					"isRequired": false,
+					"isSecret": true
+				},
+				{
+					"name": "SOLANA_RPC_URL",
+					"description": "Solana mainnet RPC endpoint used by get_wallet_balances and send_transfer. Defaults to https://api.mainnet-beta.solana.com — bring your own (Helius / QuickNode / Triton) for production traffic.",
+					"format": "string",
+					"isRequired": false,
+					"default": "https://api.mainnet-beta.solana.com"
+				},
+				{
+					"name": "SOLANA_SECRET_KEY",
+					"description": "Base58-encoded Solana secret key for the wallet that send_transfer signs from. REQUIRED for send_transfer (the only write tool); a per-call `secret` arg overrides it. Not needed for any read tool. Treat like cash.",
+					"format": "string",
+					"isRequired": true,
+					"isSecret": true
+				},
+				{
+					"name": "MAX_SOL_PER_TX",
+					"description": "Per-transaction spend cap in SOL for native SOL transfers via send_transfer. Bounds the blast radius of a leaked key or an injected argument.",
+					"format": "number",
+					"isRequired": false,
+					"default": "0.5"
+				},
+				{
+					"name": "RECIPIENT_ALLOWLIST",
+					"description": "Optional comma-separated base58 pubkeys. When set, send_transfer refuses any recipient not in the list.",
+					"format": "string",
+					"isRequired": false
+				},
+				{
+					"name": "REQUIRE_CONFIRM",
+					"description": "When on (default), send_transfer refuses until re-issued with confirm:true. Set 0/false to disable the gate.",
+					"format": "boolean",
+					"isRequired": false,
+					"default": "true"
+				}
+			]
+		}
+	]
+}

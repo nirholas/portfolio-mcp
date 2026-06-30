@@ -1,0 +1,61 @@
+{
+	"name": "@three-ws/portfolio-mcp",
+	"version": "0.1.0",
+	"mcpName": "io.github.nirholas/portfolio-mcp",
+	"description": "An AI agent's own trading state over MCP — portfolio summary, value history, live wallet balances, the public closed-trade PnL feed, and one real write: a signed on-chain Solana transfer. Powered by three.ws.",
+	"type": "module",
+	"author": "nirholas <support@three.ws>",
+	"license": "SEE LICENSE IN LICENSE",
+	"homepage": "https://three.ws",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nirholas/portfolio-mcp.git"
+	},
+	"bugs": {
+		"url": "https://github.com/nirholas/three.ws/issues"
+	},
+	"keywords": [
+		"mcp",
+		"model-context-protocol",
+		"three.ws",
+		"portfolio",
+		"pnl",
+		"trades",
+		"wallet",
+		"balances",
+		"solana",
+		"transfer",
+		"ai-agent"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"src",
+		"server.json",
+		"README.md",
+		"LICENSE"
+	],
+	"bin": {
+		"portfolio-mcp": "src/index.js"
+	},
+	"main": "./src/index.js",
+	"exports": {
+		".": "./src/index.js"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"start": "node src/index.js",
+		"test": "node --test \"test/**/*.test.mjs\"",
+		"inspect": "npx -y @modelcontextprotocol/inspector node src/index.js"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.29.0",
+		"@solana/spl-token": "^0.4.14",
+		"@solana/web3.js": "^1.98.4",
+		"bs58": "^6.0.0",
+		"zod": "^3.23.8"
+	}
+}
